@@ -1,4 +1,3 @@
-# problem solving (mostly algo and math)
 public boolean groupSum(int start, int[] nums, int target) {
   // Base case: if there are no numbers left, then there is a
   // solution only if target is 0.
