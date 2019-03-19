@@ -1,4 +1,12 @@
 public boolean groupSum(int start, int[] nums, int target) {
+
+  if (start >= nums.length) return (target == 0);
+
+  return groupSum(start + 1, nums, target - nums[start]) ||  groupSum(start + 1, nums, target);
+
+}
+
+public boolean groupSumSame(int start, int[] nums, int target) {
   // Base case: if there are no numbers left, then there is a
   // solution only if target is 0.
   if (start >= nums.length) return (target == 0);
