@@ -1,5 +1,9 @@
+def numOfBraces(n, s, opening, closing, memo):
 
-def numOfBraces(n, opening=0, closing=0):
+    if (opening, closing) in memo:
+        return memo[(opening, closing)]
+
+
 
     if opening > n or closing > n:
         return 0
@@ -8,14 +12,23 @@ def numOfBraces(n, opening=0, closing=0):
         return 1
 
     if opening == n:
-        return numOfBraces(n, opening, closing + 1)
+        memo[(opening, closing)] = numOfBraces(n, opening, closing + 1, memo)
+        return memo[(opening, closing)]
 
-    if opening > closing:
-        return numOfBraces(n, opening + 1, closing) + numOfBraces(n, opening, closing + 1)
-    elif opening == closing:
-        return numOfBraces(n, opening + 1, closing)
-    return 0 # closing > opening
+    if opening == closing :
+        memo[(opening, closing)] =  numOfBraces(n, opening + 1, closing, memo)
+        return memo[(opening, closing)]
+    elif opening > closing:
+        memo[(opening, closing)] =  numOfBraces(n, opening + 1, closing, memo) + numOfBraces(n, s, opening, closing + 1, memo)
+        return memo[(opening, closing)]
 
+    memo[(opening, closing)] = 0
+    return memo[(opening, closing)] # closing > opening
 
-n = int(input().strip())
-print(numOfBraces(n))
+t = int(input().strip())
+
+for _ in range(t):
+    n, k = tuple(map(int, input().strip().split()))
+    s = list(map(int, input().strip().split()))
+    memo = dict()
+    print(numOfBraces(n, s, 0, 0, memo))
